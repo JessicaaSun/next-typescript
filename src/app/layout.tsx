@@ -9,20 +9,6 @@ import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import Error from "./error";
 import StyledJsxRegistry from "./registry";
 
-const inter = Inter({ subsets: ["latin"] });
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  display: "swap",
-  style: ["italic", "normal"],
-  variable: "--font-poppins",
-});
-
-const kantumruy_pro = Kantumruy_Pro({
-  subsets: ["khmer"],
-  display: "swap",
-  variable: "--font-kantumruy-pro",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -42,6 +28,22 @@ export const metadata: Metadata = {
     ],
   },
 };
+
+
+const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+  style: ["italic", "normal"],
+  variable: "--font-poppins",
+});
+
+const kantumruy_pro = Kantumruy_Pro({
+  subsets: ["khmer"],
+  display: "swap",
+  variable: "--font-kantumruy-pro",
+});
 
 export default function RootLayout({
   children,
