@@ -6,9 +6,9 @@ import {
   NavbarContent,
   NavbarItem,
   Button,
-  NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  NavbarMenuToggle,
 } from "@nextui-org/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -69,7 +69,7 @@ export default function App() {
         <NavbarItem className="hidden lg:flex">
           <Link href="/dashboard">Dashboard</Link>
         </NavbarItem>
-        <NavbarItem>
+        <NavbarItem  className="hidden lg:flex">
           <Button as={Link} color="primary" href="/login" variant="flat">
             Login
           </Button>
@@ -94,8 +94,11 @@ export default function App() {
             </Link>
           </NavbarMenuItem>
         ))}
-        <NavbarItem className="w-full font">
+        <NavbarItem className="w-full text-[18px]">
           <Link href="/dashboard">Dashboard</Link>
+        </NavbarItem>
+        <NavbarItem className="w-full text-[18px]">
+          <Link href="/dashboard">Login</Link>
         </NavbarItem>
       </NavbarMenu>
     </Navbar>
