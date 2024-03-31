@@ -70,7 +70,7 @@ export default function App() {
           <Link href="/dashboard">Dashboard</Link>
         </NavbarItem>
         <NavbarItem  className="hidden lg:flex">
-          <Button as={Link} color="primary" href="/login" variant="flat">
+          <Button as={Link} className="bg-gradient-to-r from-blue-500 to-pink-400 text-white" href="/login" variant="flat">
             Login
           </Button>
         </NavbarItem>
