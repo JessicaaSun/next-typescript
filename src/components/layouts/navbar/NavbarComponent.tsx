@@ -74,6 +74,7 @@ export default function App() {
             Login
           </Button>
         </NavbarItem>
+      
       </NavbarContent>
 
       <NavbarMenu>

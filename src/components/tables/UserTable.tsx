@@ -1,10 +1,20 @@
 "use client";
 import LoadingComponent from "@/app/loading";
 import { UserType } from "@/types/users";
-import { Button, Input } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import React from "react";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
+import { IoEllipsisHorizontal } from "react-icons/io5";
+import Image from "next/image";
 
 type DataRow = {
   title: string;
@@ -13,24 +23,24 @@ type DataRow = {
 };
 
 const customStyles = {
-	rows: {
-		style: {
+  rows: {
+    style: {
       // minWidth: "1000px",
-			minHeight: '72px', // override the row height
-		},
-	},
-	headCells: {
-		style: {
-			paddingLeft: '8px', // override the cell padding for head cells
-			paddingRight: '8px',
-		},
-	},
-	cells: {
-		style: {
-			paddingLeft: '8px', // override the cell padding for data cells
-			paddingRight: '8px',
-		},
-	},
+      minHeight: "72px", // override the row height
+    },
+  },
+  headCells: {
+    style: {
+      paddingLeft: "8px", // override the cell padding for head cells
+      paddingRight: "8px",
+    },
+  },
+  cells: {
+    style: {
+      paddingLeft: "8px", // override the cell padding for data cells
+      paddingRight: "8px",
+    },
+  },
 };
 
 const url_based = "https://dummyjson.com/users";
@@ -39,11 +49,21 @@ const UserTable = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState([]);
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [userDetail, setUserDetail] = useState({} as UserType)
+
+  function handleDetail(value: UserType) {
+    onOpen();
+    setUserDetail(value)
+    
+  }
 
   const columnsData: TableColumn<UserType>[] = [
     {
       name: "ID",
-      selector: (row):any => <div className=" font-bold text-blue-600">{row.id}</div>,
+      selector: (row): any => (
+        <div className=" font-bold text-blue-600">{row.id}</div>
+      ),
       sortable: true,
     },
     {
@@ -58,14 +78,43 @@ const UserTable = () => {
     },
     {
       name: "Image",
-      selector: (row):any => (
+      selector: (row): any => (
         <img src={row.image} width={70} height={70} alt="user" />
       ),
     },
     {
       name: "Action",
-      cell: (row) => (<Button onClick={()=>console.log(row)} color="danger" size="sm">Delete</Button>)
-    }
+      cell: (row) => {
+        return (
+          <div>
+            <Dropdown>
+              <DropdownTrigger>
+                <button>
+                  <IoEllipsisHorizontal />
+                </button>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Static Actions">
+                <DropdownItem
+                  key="detail"
+                  onClick={()=> handleDetail(row)}
+                >
+                  View Detail
+                </DropdownItem>
+
+                <DropdownItem key="edit">Edit</DropdownItem>
+                <DropdownItem
+                  key="delete"
+                  className="text-danger"
+                  color="danger"
+                >
+                  Delete
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+        );
+      },
+    },
   ];
 
   useEffect(() => {
@@ -78,7 +127,6 @@ const UserTable = () => {
     fetchData();
     setIsLoading(false);
   }, []);
-
 
   useEffect(() => {
     if (!search) {
@@ -99,7 +147,28 @@ const UserTable = () => {
   };
 
   return (
-    <div className="w-full" >
+    <div className="w-full">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+              <ModalBody>
+                <p> 
+                  {userDetail.username}
+                </p>
+                <p>
+                  {userDetail.email}
+                </p>
+                <Image src={userDetail.image} width={100} height={100} alt="user" />
+              
+              </ModalBody>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+   
+
       <DataTable
         progressPending={isLoading}
         columns={columnsData}
