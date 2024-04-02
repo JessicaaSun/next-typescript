@@ -20,7 +20,6 @@ const validationSchema = Yup.object().shape({
     .required("Last name is required"),
 });
 
-
 const fieldStyle = "border border-gray-300 rounded-md";
 const RegisterForm = () => {
   const [viewPassword, setViewPassword] = React.useState(false);
@@ -32,29 +31,29 @@ const RegisterForm = () => {
     setViewConfirmPassword(!viewConfirmPassword);
   }
 
-  async function handleRegister(values: any){
-    const {email, password, confirmPassword, firstName, lastName} = values
+  async function handleRegister(values: any) {
+    const { email, password, confirmPassword, firstName, lastName } = values;
     try {
-            const postData = await fetch(`${baseApi}user/register/`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email,
-                password1: password,
-                password2: confirmPassword,
-                first_name: firstName,
-                last_name: lastName
-            })
-        })
-        const res = await postData.json()
-        if(res.ok){
-            console.log("User registered successfully")
-        } else {
-            console.log("Fail to register user")
-        }
+      const postData = await fetch(`${baseApi}user/register/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password1: password,
+          password2: confirmPassword,
+          first_name: firstName,
+          last_name: lastName,
+        }),
+      });
+      const res = await postData.json();
+      if (res.ok) {
+        console.log("User registered successfully");
+      } else {
+        console.log("Fail to register user");
+      }
     } catch (error) {
-        console.log(error)
-    } 
+      console.log(error);
+    }
   }
 
   return (
@@ -62,8 +61,8 @@ const RegisterForm = () => {
       <Formik
         onSubmit={(values, { setSubmitting }) => {
           console.log(values);
-          handleRegister(values)
-          setSubmitting(false)
+          handleRegister(values);
+          setSubmitting(false);
         }}
         validationSchema={validationSchema}
         initialValues={{
@@ -118,7 +117,7 @@ const RegisterForm = () => {
                 name="confirmPassword"
                 type={viewConfirmPassword ? "text" : "password"}
               />
-               <div
+              <div
                 onClick={() => handleViewConfirm()}
                 className="absolute cursor-pointer top-[45px] right-[20px]"
               >
