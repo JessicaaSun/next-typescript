@@ -1,23 +1,16 @@
 "use client";
-import { Button } from "@nextui-org/react";
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
 const userSchema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
-  lastName: Yup.string().required("Last name is required"),
+  lastName: Yup.string().required("Last name is =required"),
   age: Yup.number().required("Age is required"),
 });
 const page = () => {
-  const header = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: "email",
-      password: "password",
-    }),
-  };
+  
   const handleSubmit = (values: any) => {
     try {
       fetch("https://dummyjson.com/users/add", {

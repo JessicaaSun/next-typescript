@@ -17,7 +17,9 @@ import { navbarItem } from "./menu";
 
 export default function App() {
   const pathname = usePathname();
-
+  if(pathname === "/login" || pathname === "/signup"){
+    return null
+  }
   return (
     <Navbar className="bg-blue-200 " disableAnimation>
       <NavbarContent className="sm:hidden" justify="start">
