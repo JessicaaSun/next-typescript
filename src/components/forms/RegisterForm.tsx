@@ -4,7 +4,8 @@ import React from "react";
 import * as Yup from "yup";
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa6";
-import { baseApi } from "@/app/constants/baseApi";
+import { BASE_API_URL } from "@/constants/baseApi";
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -34,7 +35,7 @@ const RegisterForm = () => {
   async function handleRegister(values: any) {
     const { email, password, confirmPassword, firstName, lastName } = values;
     try {
-      const postData = await fetch(`${baseApi}user/register/`, {
+      const postData = await fetch(`${BASE_API_URL}user/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -59,10 +60,11 @@ const RegisterForm = () => {
   return (
     <div className="w-[500px] bg-white rounded-lg shadow-sm">
       <Formik
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           console.log(values);
           handleRegister(values);
           setSubmitting(false);
+          resetForm()
         }}
         validationSchema={validationSchema}
         initialValues={{
@@ -90,7 +92,7 @@ const RegisterForm = () => {
             </div>
             {/* password */}
             <div className="flex relative flex-col gap-2">
-              <label htmlFor="email">Password: </label>
+              <label htmlFor="password">Password: </label>
               <Field
                 placeholder="password"
                 className={fieldStyle}

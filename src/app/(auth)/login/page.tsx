@@ -1,8 +1,17 @@
 "use client";
 
+import { avatar } from "@nextui-org/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import React from "react";
 import * as Yup from "yup";
+
+const FILE_SIZE = 1024 * 1024 * 2;
+const SUPPORTED_FORMATS = [
+  "image/jpg",
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+];
 
 const userSchema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
@@ -32,6 +41,7 @@ const page = () => {
           lastName: "",
           firstName: "",
           age: 0,
+          avatar: undefined,
         }}
         validationSchema={userSchema}
         onSubmit={(values, { setSubmitting }: any) => {

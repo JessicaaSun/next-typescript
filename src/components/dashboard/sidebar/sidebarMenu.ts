@@ -4,17 +4,22 @@ import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, Hi
 export const sideBarItem = [
     {
         title: "Dashboard",
-        path: "/dasboard",
+        path: "/dashboard",
         icon: HiArrowSmRight
     },
     {
+        title: "Create Product",
+        path: "/dashboard/create-product",
+        icon: HiChartPie
+    },
+    {
         title: "Account",
-        path: "/dasboard/account",
+        path: "/dashboard/account",
         icon: HiChartPie
     },
     {
         title: "Setting",
-        path: "/dasboard/setting",
+        path: "/dashboard/setting",
         icon: HiViewBoards
     },
 ]
